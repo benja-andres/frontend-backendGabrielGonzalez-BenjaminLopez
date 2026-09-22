@@ -1,0 +1,1543 @@
+:root {
+  --brand-green: #2e7d32;
+  --brand-green-dark: #1b5e20;
+  --brand-green-light: #e8f5e9;
+  --brand-orange: #f57c00;
+  --brand-orange-dark: #d96800;
+  --brand-wine: #7b1f42;
+  --brand-wine-dark: #611632;
+  --cream: #fffaf2;
+  --ink: #19301d;
+  --muted: #657067;
+  --line: #dce7dc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+.navbar {
+  background: var(--brand-green);
+  box-shadow: 0 6px 25px rgba(20, 62, 23, 0.15);
+  min-height: 82px;
+  padding: 0.7rem 0;
+}
+
+.brand-mark {
+  align-items: center;
+  background: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  color: var(--brand-green) !important;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.65rem;
+  height: 62px;
+  justify-content: center;
+  line-height: 1;
+  margin-right: 1.5rem;
+  transform: rotate(-4deg);
+  width: 76px;
+}
+
+.brand-mark strong {
+  font-family: "Paytone One", sans-serif;
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+
+.navbar-nav .nav-link {
+  border-radius: 99px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.55rem 0.72rem !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.contact-link {
+  border: 0;
+  width: 100%;
+}
+
+.promo-bar {
+  background: var(--brand-wine);
+  color: #fff;
+  font-size: 0.8rem;
+  min-height: 34px;
+}
+
+.promo-content {
+  align-items: center;
+  display: flex;
+  min-height: 34px;
+  padding-bottom: 0.35rem;
+  padding-top: 0.35rem;
+}
+
+.promo-close {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  line-height: 1;
+  margin-left: 0.75rem;
+  opacity: 0.8;
+  padding: 0.15rem 0.35rem;
+}
+
+.promo-close:hover {
+  opacity: 1;
+}
+
+.search-form {
+  background: #fff;
+  border-radius: 99px;
+  max-width: 220px;
+  overflow: hidden;
+}
+
+.search-form .form-control {
+  border: 0;
+  box-shadow: none;
+  font-size: 0.85rem;
+  padding: 0.65rem 0 0.65rem 1rem;
+}
+
+.search-button {
+  background: transparent;
+  border: 0;
+  color: var(--brand-green);
+  padding: 0 0.9rem;
+}
+
+.nav-action {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.64rem;
+  font-weight: 700;
+  gap: 0.08rem;
+  min-width: 50px;
+  padding: 0;
+}
+
+.nav-action > i {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  font-size: 1rem;
+  height: 35px;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  width: 35px;
+}
+
+.nav-action:hover > i,
+.nav-action:focus > i {
+  background: var(--brand-orange);
+  transform: translateY(-2px);
+}
+
+.cart-count {
+  align-items: center;
+  background: var(--brand-orange);
+  border: 2px solid var(--brand-green);
+  border-radius: 50%;
+  display: flex;
+  font-size: 0.63rem;
+  height: 19px;
+  justify-content: center;
+  position: absolute;
+  right: 2px;
+  top: -3px;
+  width: 19px;
+}
+
+.hero-section {
+  padding: 2.25rem 0 1.5rem;
+}
+
+.hero-card {
+  background: #fff;
+  border: 2px solid var(--brand-green);
+  border-radius: 30px;
+  box-shadow: 0 18px 50px rgba(46, 125, 50, 0.1);
+  overflow: hidden;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 4.5rem);
+}
+
+.eyebrow {
+  color: var(--brand-orange);
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.55rem;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+  font-size: clamp(3.4rem, 5.6vw, 6.2rem);
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 span {
+  color: var(--brand-wine);
+}
+
+.hero-copy > p {
+  color: var(--muted);
+  font-size: 1.02rem;
+  margin-bottom: 1.5rem;
+  max-width: 470px;
+}
+
+.btn {
+  border-radius: 99px;
+  font-weight: 800;
+  padding: 0.72rem 1.35rem;
+}
+
+.btn-primary-brand,
+.add-to-cart {
+  background: var(--brand-orange);
+  border: 2px solid var(--brand-orange);
+  color: #fff;
+}
+
+.btn-primary-brand:hover,
+.btn-primary-brand:focus,
+.add-to-cart:hover,
+.add-to-cart:focus {
+  background: var(--brand-orange-dark);
+  border-color: var(--brand-orange-dark);
+  color: #fff;
+}
+
+.btn-secondary-brand {
+  background: var(--brand-wine);
+  border: 2px solid var(--brand-wine);
+  color: #fff;
+}
+
+.btn-secondary-brand:hover,
+.btn-secondary-brand:focus {
+  background: var(--brand-wine-dark);
+  border-color: var(--brand-wine-dark);
+  color: #fff;
+}
+
+.hero-benefits {
+  color: var(--brand-green);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  font-weight: 800;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.hero-benefits i {
+  margin-right: 0.2rem;
+}
+
+.hero-visual {
+  min-height: 570px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-visual::after {
+  background: linear-gradient(0deg, rgba(15, 47, 18, 0.5), transparent 46%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.hero-visual .carousel,
+.hero-visual .carousel-inner,
+.hero-visual .carousel-item {
+  min-height: inherit;
+}
+
+.hero-visual .carousel-item img {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.hero-visual .carousel-control-prev,
+.hero-visual .carousel-control-next {
+  z-index: 2;
+}
+
+.hero-sticker {
+  align-items: center;
+  background: var(--brand-orange);
+  border: 5px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  justify-content: center;
+  line-height: 1.05;
+  position: absolute;
+  right: 28px;
+  top: 28px;
+  transform: rotate(8deg);
+  width: 120px;
+  z-index: 1;
+}
+
+.hero-sticker strong {
+  font-family: "Paytone One", sans-serif;
+  font-size: 1.35rem;
+}
+
+.hero-sticker span {
+  font-size: 0.75rem;
+}
+
+.hero-caption {
+  align-items: center;
+  bottom: 28px;
+  color: #fff;
+  display: flex;
+  font-size: 1.1rem;
+  font-weight: 800;
+  gap: 0.7rem;
+  left: 30px;
+  position: absolute;
+  z-index: 1;
+}
+
+.hero-caption i {
+  align-items: center;
+  background: var(--brand-orange);
+  border-radius: 50%;
+  display: flex;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.products-section {
+  padding: 4rem 0 5rem;
+}
+
+.quick-links {
+  background: #fff;
+  padding: 4.5rem 0;
+}
+
+.quick-links h2,
+.page-banner h1,
+.catalog-heading h2,
+.story-section h2,
+.method-section h2,
+.hours-card h2 {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.quick-card {
+  align-items: center;
+  background: var(--brand-green-light);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--brand-green);
+  display: flex;
+  font-weight: 800;
+  gap: 1rem;
+  min-height: 110px;
+  padding: 1.5rem;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.quick-card:hover {
+  background: #d8efda;
+  color: var(--brand-green-dark);
+  transform: translateY(-4px);
+}
+
+.quick-card i {
+  color: var(--brand-orange);
+  font-size: 2rem;
+}
+
+.page-banner {
+  background: linear-gradient(115deg, var(--brand-green-light), #fff3df);
+  padding: 4.5rem 0;
+  text-align: center;
+}
+
+.page-banner h1 {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  margin-bottom: 0.75rem;
+}
+
+.page-banner p {
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 680px;
+}
+
+.combo-banner {
+  background: linear-gradient(115deg, #f8e5ec, #fff3df);
+}
+
+.catalog-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+
+.catalog-heading h2 {
+  margin: 0;
+}
+
+.catalog-heading span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.section-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.7rem;
+}
+
+.section-heading h2,
+.about-section h2 {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+  font-size: clamp(2rem, 3vw, 3.1rem);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.all-products-link {
+  color: var(--brand-wine);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.all-products-link i {
+  transition: transform 0.2s;
+}
+
+.all-products-link:hover i {
+  display: inline-block;
+  transform: translateX(4px);
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(31, 75, 34, 0.08);
+  display: grid;
+  gap: 0 0.8rem;
+  grid-template-columns: 40% 1fr;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  padding: 1rem;
+  position: relative;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.product-card:hover {
+  box-shadow: 0 18px 36px rgba(31, 75, 34, 0.15);
+  transform: translateY(-6px);
+}
+
+.product-card .card-title {
+  color: var(--brand-green);
+  font-size: 1rem;
+  font-weight: 800;
+  grid-column: 1 / -1;
+  line-height: 1.25;
+  margin: 0 0 0.8rem;
+  min-height: 42px;
+}
+
+.product-badge {
+  background: var(--brand-wine);
+  border-radius: 0 0 0 12px;
+  color: #fff;
+  font-size: 0.59rem;
+  font-weight: 800;
+  padding: 0.38rem 0.65rem;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
+  top: 0;
+  z-index: 1;
+}
+
+.product-badge + .card-title {
+  margin-top: 1.5rem;
+}
+
+.new-badge {
+  background: var(--brand-green);
+}
+
+.product-image {
+  align-self: stretch;
+  aspect-ratio: 1;
+  border-radius: 15px;
+  height: 100%;
+  min-height: 150px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.product-card .card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.product-card .card-text {
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.55;
+  min-height: 52px;
+}
+
+.product-footer {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.size-select {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--ink);
+  font-size: 0.68rem;
+  padding: 0.38rem 1.8rem 0.38rem 0.55rem;
+}
+
+.size-select:focus {
+  border-color: var(--brand-green);
+  box-shadow: 0 0 0 0.15rem rgba(46, 125, 50, 0.15);
+}
+
+.size-modal {
+  border: 0;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.size-modal .modal-title {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+}
+
+.size-product-summary {
+  align-items: center;
+  background: var(--brand-green-light);
+  border-radius: 15px;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding: 0.8rem;
+}
+
+.size-product-image {
+  border-radius: 11px;
+  height: 72px;
+  object-fit: cover;
+  width: 72px;
+}
+
+.size-product-summary h3 {
+  color: var(--brand-green);
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin: 0 0 0.15rem;
+}
+
+.size-product-summary p {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.size-modal-price {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.size-modal-price span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.size-modal-price strong {
+  color: var(--brand-wine);
+  font-size: 1.4rem;
+}
+
+.nutrition-link {
+  background: transparent;
+  border: 0;
+  color: var(--brand-green);
+  font-size: 0.65rem;
+  font-weight: 800;
+  margin: 0 0 0.6rem;
+  padding: 0;
+  text-align: left;
+}
+
+.nutrition-link:hover,
+.nutrition-link:focus {
+  color: var(--brand-wine);
+  text-decoration: underline;
+}
+
+.nutrition-panel {
+  background: #fffaf2;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.combo-nutrition-modal {
+  border: 0;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.combo-nutrition-modal .modal-title {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+}
+
+.combo-nutrition-name {
+  color: var(--brand-wine);
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.combo-nutrition-slide {
+  background: var(--brand-green-light);
+  border-radius: 16px;
+  min-height: 260px;
+  padding: 1.3rem;
+  text-align: center;
+}
+
+.combo-product-count {
+  color: var(--brand-orange);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.combo-nutrition-slide h4 {
+  color: var(--brand-green);
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0.35rem 0 0;
+}
+
+.combo-nutrition-slide > p {
+  color: var(--muted);
+  font-size: 0.72rem;
+  margin: 0 0 1rem;
+}
+
+.combo-nutrition-modal .carousel-inner {
+  padding: 0 2.4rem;
+}
+
+.combo-carousel-control {
+  background: var(--brand-green);
+  border-radius: 50%;
+  height: 34px;
+  opacity: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+}
+
+.combo-nutrition-modal .carousel-control-prev {
+  left: 0;
+}
+
+.combo-nutrition-modal .carousel-control-next {
+  right: 0;
+}
+
+.combo-nutrition-link {
+  margin-top: auto;
+}
+
+.combo-nutrition-link + .combo-card-footer {
+  margin-top: 0;
+}
+
+.nutrition-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.nutrition-heading h3 {
+  color: var(--brand-green);
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.nutrition-heading span {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.nutrition-grid {
+  display: grid;
+  gap: 0.45rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.nutrition-grid div {
+  background: #fff;
+  border-radius: 9px;
+  padding: 0.55rem;
+}
+
+.nutrition-grid span,
+.nutrition-grid strong {
+  display: block;
+}
+
+.nutrition-grid span {
+  color: var(--muted);
+  font-size: 0.58rem;
+}
+
+.nutrition-grid strong {
+  color: var(--brand-wine);
+  font-size: 0.82rem;
+}
+
+.price small,
+.price strong {
+  display: block;
+}
+
+.price small {
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+.price strong {
+  color: var(--brand-wine);
+  font-size: 1.04rem;
+}
+
+.add-to-cart {
+  font-size: 0.67rem;
+  padding: 0.48rem 0.6rem;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.no-results {
+  background: var(--brand-green-light);
+  border-radius: 16px;
+  color: var(--brand-green);
+  font-weight: 700;
+  margin: 1rem 0 0;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.combo-strip {
+  background: var(--brand-wine);
+  color: #fff;
+  padding: 1.4rem 0;
+}
+
+.combo-content {
+  align-items: center;
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+.combo-icon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+  display: flex;
+  font-size: 1.7rem;
+  height: 56px;
+  justify-content: center;
+  width: 56px;
+}
+
+.combo-content span,
+.combo-content strong {
+  display: block;
+}
+
+.combo-content span {
+  color: #ffc178;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.combo-content strong {
+  font-size: 1.05rem;
+}
+
+.combo-price {
+  color: #ffc178;
+  font-family: "Paytone One", sans-serif;
+  font-size: 1.6rem;
+  margin-left: 1.5rem;
+}
+
+.combo-content .btn-light {
+  color: var(--brand-wine);
+  margin-left: 0.5rem;
+}
+
+.about-section {
+  background: #fff;
+  padding: 5rem 0;
+}
+
+.about-section p {
+  color: var(--muted);
+  margin: 1rem auto 0;
+  max-width: 680px;
+}
+
+footer {
+  background: var(--brand-green);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 4.5rem 0 1.5rem;
+}
+
+.footer-brand {
+  color: #fff;
+  font-family: "Paytone One", sans-serif;
+  font-size: 1.7rem;
+}
+
+.footer-brand strong {
+  color: #ffc178;
+}
+
+.footer-description {
+  margin: 0.7rem 0 1.25rem;
+  max-width: 380px;
+}
+
+.footer-info li {
+  font-size: 0.84rem;
+  margin-bottom: 0.55rem;
+}
+
+.footer-info i {
+  color: #ffc178;
+  margin-right: 0.5rem;
+}
+
+footer h2 {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+
+.footer-links li {
+  margin-bottom: 0.55rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.84rem;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.payment-methods {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.payment-methods span {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 9px;
+  color: var(--ink);
+  display: flex;
+  box-shadow: 0 4px 12px rgba(15, 47, 18, 0.18);
+  font-size: 0.74rem;
+  font-weight: 700;
+  gap: 0.4rem;
+  justify-content: center;
+  min-height: 68px;
+  padding: 0.75rem;
+}
+
+.payment-methods img {
+  max-height: 36px;
+  max-width: 92px;
+  object-fit: contain;
+}
+
+.payment-methods span:nth-child(3) img {
+  max-height: 32px;
+  max-width: 64px;
+}
+
+.payment-methods b {
+  color: #152c19;
+  font-size: 0.72rem;
+}
+
+.payment-methods i {
+  color: var(--brand-green);
+  font-size: 1.65rem;
+}
+
+.footer-links button {
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.84rem;
+  padding: 0;
+}
+
+.footer-links button:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  font-size: 0.69rem;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+}
+
+.contact-modal,
+.offcanvas {
+  border: 0;
+}
+
+.contact-modal {
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.contact-modal .modal-title {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+}
+
+.contact-data {
+  background: var(--brand-green-light);
+  border-radius: 14px;
+  color: var(--brand-green-dark);
+  font-size: 0.82rem;
+  padding: 1rem;
+}
+
+.contact-data li + li {
+  margin-top: 0.45rem;
+}
+
+.contact-data i {
+  color: var(--brand-orange);
+  margin-right: 0.45rem;
+}
+
+.contact-form .form-control {
+  border-color: var(--line);
+  border-radius: 11px;
+}
+
+.account-modal {
+  border-radius: 22px;
+  padding: 0.7rem;
+}
+
+.account-modal .modal-title,
+.offcanvas-title {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+  font-size: 1.6rem;
+}
+
+.account-modal .nav-pills {
+  background: var(--brand-green-light);
+  border-radius: 99px;
+  padding: 0.25rem;
+}
+
+.account-modal .nav-pills .nav-link {
+  border-radius: 99px;
+  color: var(--brand-green);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.account-modal .nav-pills .nav-link.active {
+  background: var(--brand-green);
+  color: #fff;
+}
+
+.form-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.account-form .form-control {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  min-height: 48px;
+}
+
+.account-form .form-text {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.offcanvas {
+  max-width: 92vw;
+  width: 410px !important;
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid var(--line);
+  padding: 1.5rem;
+}
+
+.empty-cart > i {
+  color: var(--brand-green);
+  font-size: 4rem;
+}
+
+.empty-cart h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-top: 0.8rem;
+}
+
+.empty-cart p {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.cart-item {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: 58px 1fr auto;
+  padding: 0.9rem 0;
+}
+
+.cart-item img {
+  border-radius: 10px;
+  height: 58px;
+  object-fit: cover;
+  width: 58px;
+}
+
+.cart-item h3 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0 0 0.18rem;
+}
+
+.cart-item p {
+  color: var(--brand-wine);
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.item-quantity {
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.2rem;
+}
+
+.item-quantity button {
+  align-items: center;
+  background: var(--brand-green-light);
+  border: 0;
+  border-radius: 50%;
+  color: var(--brand-green);
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.item-quantity span {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.cart-summary {
+  border-top: 1px solid var(--line);
+  font-size: 1.05rem;
+  margin-top: auto;
+  padding-top: 1.2rem;
+}
+
+.cart-summary strong {
+  color: var(--brand-wine);
+}
+
+.clear-cart {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  display: block;
+  font-size: 0.7rem;
+  margin: 0.75rem auto 0;
+  text-decoration: underline;
+}
+
+.cart-toast {
+  background: var(--brand-green);
+  color: #fff;
+}
+
+.combo-list-section {
+  padding: 5rem 0;
+}
+
+.combo-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(31, 75, 34, 0.08);
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.combo-photo {
+  min-height: 255px;
+  position: relative;
+}
+
+.combo-photo img {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.combo-photo span {
+  background: var(--brand-wine);
+  border-radius: 99px;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  left: 14px;
+  padding: 0.4rem 0.7rem;
+  position: absolute;
+  top: 14px;
+}
+
+.combo-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.combo-card h2 {
+  color: var(--brand-green);
+  font-family: "Paytone One", sans-serif;
+  font-size: 1.55rem;
+}
+
+.combo-card p {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.combo-card-footer {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.combo-card .add-to-cart {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.combo-card-footer strong {
+  color: var(--brand-wine);
+  font-size: 1.25rem;
+}
+
+.story-section,
+.method-section,
+.hours-section {
+  padding: 5rem 0;
+}
+
+.method-section {
+  background: #fff;
+}
+
+.story-image {
+  border-radius: 28px;
+  box-shadow: 0 16px 40px rgba(31, 75, 34, 0.14);
+  height: 420px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.story-section h2,
+.method-section h2,
+.hours-card h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.story-section p,
+.method-section p {
+  color: var(--muted);
+}
+
+.method-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.method-points span {
+  background: var(--brand-green-light);
+  border-radius: 99px;
+  color: var(--brand-green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.6rem 0.9rem;
+}
+
+.hours-card {
+  align-items: center;
+  background: var(--brand-wine);
+  border-radius: 28px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.hours-card h2,
+.hours-card .eyebrow {
+  color: #fff;
+}
+
+.hours-card dl {
+  margin: 0;
+  min-width: 330px;
+}
+
+.hours-card dl div {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+}
+
+.hours-card dd {
+  margin: 0 0 0 2rem;
+}
+
+@media (max-width: 1199.98px) {
+  .navbar-collapse {
+    padding: 1rem 0 0.5rem;
+  }
+
+  .navbar-nav {
+    align-items: stretch !important;
+  }
+
+  .navbar-nav .nav-link {
+    padding-left: 1rem !important;
+  }
+
+  .search-form {
+    max-width: 100%;
+  }
+
+  .nav-actions {
+    justify-content: flex-start;
+    margin-top: 1rem;
+  }
+
+  .cart-count {
+    right: 1px;
+  }
+
+  .hero-visual {
+    min-height: 510px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .hero-copy {
+    text-align: center;
+  }
+
+  .hero-copy > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-copy .d-flex,
+  .hero-benefits {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding-top: 1rem;
+  }
+
+  .hero-card {
+    border-radius: 22px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(3.2rem, 17vw, 5.2rem);
+  }
+
+  .hero-visual {
+    min-height: 350px;
+  }
+
+  .hero-sticker {
+    height: 95px;
+    right: 18px;
+    top: 18px;
+    width: 95px;
+  }
+
+  .hero-sticker strong {
+    font-size: 1.05rem;
+  }
+
+  .products-section {
+    padding: 3.5rem 0;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .catalog-heading,
+  .hours-card {
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .combo-card {
+    grid-template-columns: 1fr;
+  }
+
+  .combo-photo {
+    min-height: 210px;
+  }
+
+  .hours-card dl {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .story-image {
+    height: 320px;
+  }
+
+  .product-card .card-text {
+    min-height: auto;
+  }
+
+  .combo-content {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .combo-icon {
+    display: none;
+  }
+
+  .combo-price {
+    margin-left: 0;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 449.98px) {
+  .brand-mark {
+    height: 54px;
+    width: 68px;
+  }
+
+  .hero-copy {
+    padding: 2.2rem 1.25rem;
+  }
+
+  .hero-copy h1 {
+    font-size: 3.25rem;
+  }
+
+  .hero-copy .btn {
+    flex: 1 1 auto;
+    font-size: 0.78rem;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+  }
+
+  .hero-caption {
+    bottom: 18px;
+    font-size: 0.85rem;
+    left: 18px;
+  }
+
+  .product-card {
+    grid-template-columns: 35% 1fr;
+  }
+
+  .combo-content > div:nth-child(2) {
+    flex-basis: 100%;
+  }
+
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .combo-card-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .combo-card .add-to-cart {
+    width: 100%;
+  }
+
+  .nutrition-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

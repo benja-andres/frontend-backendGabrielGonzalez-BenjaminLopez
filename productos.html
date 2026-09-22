@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Catálogo de jugos, smoothies detox y batidos proteicos de Natural Power."
+    />
+    <title>Natural Power | Productos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Paytone+One&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="sticky-top">
+      <nav
+        class="navbar navbar-expand-xl navbar-dark"
+        aria-label="Navegación principal"
+      >
+        <div class="container-xxl">
+          <a
+            class="navbar-brand brand-mark"
+            href="index.html"
+            aria-label="Natural Power, ir al inicio"
+            ><span>Natural</span><strong>Power</strong></a
+          >
+          <button
+            class="navbar-toggler border-0 shadow-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Abrir menú"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav mx-xl-auto align-items-xl-center gap-xl-1">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="productos.html"
+                  >Productos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="combos.html">Combos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="nosotros.html">Nosotros</a>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link contact-link"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#contactoModal"
+                >
+                  Contacto
+                </button>
+              </li>
+            </ul>
+            <form class="search-form d-flex my-3 my-xl-0" role="search">
+              <label class="visually-hidden" for="searchInput"
+                >Buscar productos</label
+              ><input
+                class="form-control search-input"
+                id="searchInput"
+                type="search"
+                placeholder="Buscar un sabor..."
+              /><button class="search-button" type="submit" aria-label="Buscar">
+                <i class="bi bi-search"></i>
+              </button>
+            </form>
+            <div class="nav-actions d-flex align-items-center gap-2 ms-xl-3">
+              <button
+                class="nav-action"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#accountModal"
+                aria-label="Ingresar a mi cuenta"
+              >
+                <i class="bi bi-person" aria-hidden="true"></i
+                ><span>Cuenta</span>
+              </button>
+              <button
+                class="nav-action position-relative"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#cartOffcanvas"
+                aria-controls="cartOffcanvas"
+                aria-label="Abrir carrito"
+              >
+                <i class="bi bi-bag"></i><span>Carrito</span
+                ><span class="cart-count" aria-live="polite">0</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="promo-bar" id="promoBar">
+        <div class="container-xxl promo-content">
+          <div
+            id="promoCarousel"
+            class="carousel slide carousel-fade flex-grow-1"
+            data-bs-ride="carousel"
+            data-bs-interval="3500"
+          >
+            <div class="carousel-inner text-center">
+              <div class="carousel-item active">
+                🎉 15% de descuento en tu primera compra con el código:
+                <strong>NATURALPOWER</strong>
+              </div>
+              <div class="carousel-item">
+                🛵 Despacho gratis en compras sobre $15.000
+              </div>
+              <div class="carousel-item">
+                🍓 Martes y jueves: 2x1 en smoothies pequeños
+              </div>
+            </div>
+          </div>
+          <button
+            class="promo-close"
+            type="button"
+            aria-label="Cerrar promociones"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-banner">
+        <div class="container-xxl">
+          <span class="eyebrow">Fruta real, sabor real</span>
+          <h1>Nuestros productos</h1>
+          <p>
+            Elige entre smoothies detox, jugos prensados en frío y batidos con
+            proteína.
+          </p>
+        </div>
+      </section>
+      <section class="products-section pt-4" aria-labelledby="catalogTitle">
+        <div class="container-xxl">
+          <div class="catalog-heading">
+            <h2 id="catalogTitle">Catálogo completo</h2>
+            <span>10 opciones preparadas al momento</span>
+          </div>
+          <div
+            class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 product-grid"
+          >
+            <div
+              class="col product-item"
+              data-name="smoothie green detox espinaca piña manzana"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge">Más vendido</span>
+                <h3 class="card-title">Smoothie Green Detox</h3>
+                <img
+                  class="product-image"
+                  src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                  alt="Smoothie Green Detox"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Espinaca, piña, manzana verde, limón y jengibre.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>500 ml</small><strong>$4.590</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Smoothie Green Detox"
+                      data-price="4590"
+                      data-image="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&amp;fit=crop&amp;w=200&amp;q=70"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="smoothie berry power frutilla arándano"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge">Favorito</span>
+                <h3 class="card-title">Smoothie Berry Power</h3>
+                <img
+                  class="product-image"
+                  src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                  alt="Smoothie Berry Power"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Frutilla, arándano, frambuesa, plátano y bebida vegetal.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>500 ml</small><strong>$4.890</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Smoothie Berry Power"
+                      data-price="4890"
+                      data-image="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&amp;fit=crop&amp;w=200&amp;q=70"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="smoothie tropical boost mango piña maracuyá"
+            >
+              <article class="card product-card h-100">
+                <h3 class="card-title">Smoothie Tropical Boost</h3>
+                <img
+                  class="product-image"
+                  src="img/productos/web/smoothie-tropical-boost.webp"
+                  alt="Smoothie Tropical Boost"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Mango, piña, maracuyá, plátano y agua de coco.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>500 ml</small><strong>$4.690</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Smoothie Tropical Boost"
+                      data-price="4690"
+                      data-image="img/productos/web/smoothie-tropical-boost.webp"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="jugo energía cítrica naranja mandarina zanahoria"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge new-badge">Nuevo</span>
+                <h3 class="card-title">Jugo Energía Cítrica</h3>
+                <img
+                  class="product-image"
+                  src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                  alt="Jugo Energía Cítrica"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Naranja, mandarina, zanahoria y un toque de cúrcuma.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>450 ml</small><strong>$3.990</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Jugo Energía Cítrica"
+                      data-price="3990"
+                      data-image="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&amp;fit=crop&amp;w=200&amp;q=70"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="jugo rojo vital betarraga frutilla manzana"
+            >
+              <article class="card product-card h-100">
+                <h3 class="card-title">Jugo Rojo Vital</h3>
+                <img
+                  class="product-image"
+                  src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                  alt="Jugo Rojo Vital"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Betarraga, frutilla, manzana roja, naranja y limón.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>450 ml</small><strong>$4.290</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Jugo Rojo Vital"
+                      data-price="4290"
+                      data-image="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&amp;fit=crop&amp;w=200&amp;q=70"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="jugo manzana fresh manzana pepino limón"
+            >
+              <article class="card product-card h-100">
+                <h3 class="card-title">Jugo Manzana Fresh</h3>
+                <img
+                  class="product-image"
+                  src="img/productos/web/jugo-manzana-fresh.webp"
+                  alt="Jugo verde de manzana"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Manzana verde, pepino, limón, menta y agua filtrada.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>450 ml</small><strong>$4.190</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Jugo Manzana Fresh"
+                      data-price="4190"
+                      data-image="img/productos/web/jugo-manzana-fresh.webp"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="batido protein cacao plátano proteína"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge">25 g proteína</span>
+                <h3 class="card-title">Protein Cacao</h3>
+                <img
+                  class="product-image"
+                  src="img/productos/web/protein-cacao.webp"
+                  alt="Batido de cacao"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Cacao, plátano, avena, proteína vegetal y bebida de
+                    almendras.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>500 ml</small><strong>$5.490</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Protein Cacao"
+                      data-price="5490"
+                      data-image="img/productos/web/protein-cacao.webp"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="batido vainilla fit proteína plátano"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge">24 g proteína</span>
+                <h3 class="card-title">Vainilla Fit</h3>
+                <img
+                  class="product-image"
+                  src="img/productos/web/vainilla-fit.webp"
+                  alt="Batido proteico de vainilla"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Proteína de vainilla, plátano, avena y bebida de coco.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>500 ml</small><strong>$5.290</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Vainilla Fit"
+                      data-price="5290"
+                      data-image="img/productos/web/vainilla-fit.webp"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="batido peanut power maní cacao proteína"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge">26 g proteína</span>
+                <h3 class="card-title">Peanut Power</h3>
+                <img
+                  class="product-image"
+                  src="img/productos/web/peanut-power.webp"
+                  alt="Batido con mantequilla de maní"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Mantequilla de maní, cacao, plátano y proteína vegetal.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>500 ml</small><strong>$5.690</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Peanut Power"
+                      data-price="5690"
+                      data-image="img/productos/web/peanut-power.webp"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div
+              class="col product-item"
+              data-name="shot defensa jengibre limón cúrcuma"
+            >
+              <article class="card product-card h-100">
+                <span class="product-badge new-badge">Shot</span>
+                <h3 class="card-title">Shot Defensa</h3>
+                <img
+                  class="product-image"
+                  src="img/productos/web/shot-defensa.webp"
+                  alt="Shot de jengibre y limón"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    Jengibre, limón, naranja, cúrcuma y pimienta negra.
+                  </p>
+                  <div class="product-footer">
+                    <div class="price">
+                      <small>80 ml</small><strong>$1.990</strong>
+                    </div>
+                    <button
+                      class="btn add-to-cart"
+                      type="button"
+                      data-name="Shot Defensa"
+                      data-price="1990"
+                      data-image="img/productos/web/shot-defensa.webp"
+                    >
+                      <i class="bi bi-plus-lg"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <p class="no-results d-none">
+            No encontramos productos para esa búsqueda.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container-xxl">
+        <div class="row g-5">
+          <div class="col-lg-5">
+            <a class="footer-brand" href="index.html"
+              >Natural <strong>Power</strong></a
+            >
+            <p class="footer-description">
+              Jugos y smoothies naturales para llenar de energía tus días.
+            </p>
+            <ul class="footer-info list-unstyled">
+              <li>
+                <i class="bi bi-geo-alt"></i> Antonio Varas 810, 7500735
+                Providencia, Región Metropolitana
+              </li>
+              <li><i class="bi bi-clock"></i> Lun a sáb, 09:00 a 20:00 hrs.</li>
+              <li><i class="bi bi-whatsapp"></i> +56 9 4567 8910</li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-3">
+            <h2>Enlaces</h2>
+            <ul class="footer-links list-unstyled">
+              <li><a href="productos.html">Productos</a></li>
+              <li><a href="combos.html">Combos</a></li>
+              <li><a href="nosotros.html">Nosotros</a></li>
+              <li>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#contactoModal"
+                >
+                  Contacto
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-4">
+            <h2>Formas de pago</h2>
+            <div class="payment-methods">
+              <span
+                ><img
+                  src="https://www.transbankdevelopers.cl/public/library/img/svg/logo_webpay_plus.svg"
+                  alt="Webpay Plus" /></span
+              ><span
+                ><img
+                  src="https://publico.transbank.cl/documents/20129/38535804/logo_tbk.svg"
+                  alt="Redcompra de Transbank"
+                /><b>Redcompra</b></span
+              ><span
+                ><img
+                  src="https://cdn.simpleicons.org/visa/1434CB"
+                  alt="Visa" /><img
+                  src="https://cdn.simpleicons.org/mastercard/EB001B"
+                  alt="Mastercard" /></span
+              ><span><i class="bi bi-bank"></i><b>Transferencia</b></span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span
+            >&copy; <span class="current-year"></span> Natural Power. Todos los
+            derechos reservados.</span
+          ><span>Hecho con fruta real en Chile.</span>
+        </div>
+      </div>
+    </footer>
+    <div
+      class="modal fade"
+      id="accountModal"
+      tabindex="-1"
+      aria-labelledby="accountModalLabel"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content account-modal">
+          <div class="modal-header border-0">
+            <div>
+              <span class="eyebrow">Bienvenido</span>
+              <h2 class="modal-title" id="accountModalLabel">
+                Tu cuenta Natural Power
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body pt-0">
+            <ul class="nav nav-pills nav-fill mb-4" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="pill"
+                  data-bs-target="#loginPane"
+                  type="button"
+                  role="tab"
+                >
+                  Ingresar
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="pill"
+                  data-bs-target="#registerPane"
+                  type="button"
+                  role="tab"
+                >
+                  Registrarme
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div
+                class="tab-pane fade show active"
+                id="loginPane"
+                role="tabpanel"
+              >
+                <form class="account-form">
+                  <div class="mb-3">
+                    <label class="form-label" for="loginEmail"
+                      >Correo electrónico</label
+                    ><input
+                      class="form-control"
+                      id="loginEmail"
+                      type="email"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="loginPassword"
+                      >Contraseña</label
+                    ><input
+                      class="form-control"
+                      id="loginPassword"
+                      type="password"
+                      minlength="6"
+                      autocomplete="current-password"
+                      required
+                    />
+                  </div>
+                  <button class="btn btn-primary-brand w-100" type="submit">
+                    Ingresar
+                  </button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="registerPane" role="tabpanel">
+                <form class="account-form">
+                  <div class="mb-3">
+                    <label class="form-label" for="registerName">Nombre</label
+                    ><input
+                      class="form-control"
+                      id="registerName"
+                      type="text"
+                      autocomplete="name"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="registerEmail"
+                      >Correo electrónico</label
+                    ><input
+                      class="form-control"
+                      id="registerEmail"
+                      type="email"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="registerPassword"
+                      >Contraseña</label
+                    ><input
+                      class="form-control"
+                      id="registerPassword"
+                      type="password"
+                      minlength="6"
+                      autocomplete="new-password"
+                      required
+                    />
+                  </div>
+                  <button class="btn btn-primary-brand w-100" type="submit">
+                    Crear cuenta
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="contactoModal"
+      tabindex="-1"
+      aria-labelledby="contactoModalLabel"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content contact-modal">
+          <div class="modal-header">
+            <div>
+              <span class="eyebrow">Hablemos</span>
+              <h2 class="modal-title" id="contactoModalLabel">Contacto</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul class="contact-data list-unstyled">
+              <li>
+                <i class="bi bi-geo-alt-fill"></i> Antonio Varas 810, 7500735
+                Providencia, Región Metropolitana
+              </li>
+              <li>
+                <i class="bi bi-clock-fill"></i> Lunes a sábado, 09:00 a 20:00
+                hrs.
+              </li>
+              <li><i class="bi bi-whatsapp"></i> +56 9 4567 8910</li>
+            </ul>
+            <form class="contact-form">
+              <div class="mb-3">
+                <label class="form-label" for="contactName">Nombre</label
+                ><input
+                  class="form-control"
+                  id="contactName"
+                  type="text"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="contactEmail">Correo</label
+                ><input
+                  class="form-control"
+                  id="contactEmail"
+                  type="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="contactMessage">Consulta</label
+                ><textarea
+                  class="form-control"
+                  id="contactMessage"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <button class="btn btn-primary-brand w-100" type="submit">
+                Enviar consulta
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="cartOffcanvas"
+      aria-labelledby="cartOffcanvasLabel"
+    >
+      <div class="offcanvas-header">
+        <div>
+          <span class="eyebrow">Tu selección</span>
+          <h2 class="offcanvas-title" id="cartOffcanvasLabel">Carrito</h2>
+        </div>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column">
+        <div class="empty-cart text-center my-auto">
+          <i class="bi bi-bag"></i>
+          <h3>Tu carrito está vacío</h3>
+          <p>Agrega tus jugos y smoothies favoritos.</p>
+        </div>
+        <div class="cart-items" aria-live="polite"></div>
+        <div class="cart-summary d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Total</span><strong class="cart-total">$0</strong>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary-brand w-100 checkout-button"
+          >
+            Continuar compra</button
+          ><button type="button" class="clear-cart">Vaciar carrito</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        class="toast cart-toast align-items-center border-0"
+        role="status"
+        aria-live="polite"
+      >
+        <div class="d-flex">
+          <div class="toast-body">
+            <i class="bi bi-check-circle-fill me-2"></i
+            ><span class="toast-message">Producto añadido al carrito.</span>
+          </div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Cerrar"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
