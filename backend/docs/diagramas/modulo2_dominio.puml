@@ -1,0 +1,207 @@
+@startuml modulo2_dominio
+title Módulo 2 - Clases del dominio y servicios públicos (Natural Power)
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+left to right direction
+
+' ---------- Servicios públicos (ids de la matriz del Módulo 1 / rutas G01-G33) ----------
+package "Servicios públicos (API Gateway /api/v1)" {
+  interface AuthService <<service>> {
+    +register()   POST /auth/register   (G01)
+    +login()      POST /auth/login      (G02)
+    +refresh()    POST /auth/refresh    (G03)
+    +logout()     POST /auth/logout     (G04)
+  }
+  interface CatalogService <<service>> {
+    +listProducts()  GET /products, /products/:id  (G05-G06)
+    +listCombos()    GET /combos, /combos/:id      (G07-G08)
+    +sendContact()   POST /contact                 (G09)
+  }
+  interface ClientService <<service>> {
+    +getMe() / updateMe() / deleteMe()  /clients/me            (G10-G12)
+    +addresses CRUD                     /clients/me/addresses  (G13-G16)
+  }
+  interface OrderService <<service>> {
+    +createOrder()  POST /orders (Idempotency-Key)  (G17)
+    +listOrders()   GET /orders                     (G18)
+    +getOrder()     GET /orders/:id                 (G19)
+    +cancelOrder()  DELETE /orders/:id              (G20)
+    +payOrder()     POST /orders/:id/pay            (G21)
+  }
+  interface PaymentWebhook <<service>> {
+    +receive()  POST /payments/webhook (firma HMAC)  (G22)
+  }
+  interface GraphQLService <<service>> {
+    +query()  POST /graphql  (G23)
+  }
+  interface AdminService <<service>> {
+    +orders / products / stock / contact / clients  /admin/*  (G24-G33)
+  }
+}
+
+' ---------- Dominio interno ----------
+class User <<auth>> {
+  id : UUID
+  email : String
+  passwordHash : String
+  role : customer | admin
+  failedAttempts : int
+  lockedUntil : DateTime
+}
+class RefreshToken <<auth>> {
+  id : UUID
+  tokenHash : String
+  expiresAt : DateTime
+  revokedAt : DateTime
+}
+class Client {
+  id : UUID
+  email : String
+  name : String
+  phone : String
+  status : active | deleted
+}
+class Address {
+  id : UUID
+  label : String
+  street : String
+  comuna : String
+  region : String
+  isDefault : boolean
+}
+class ContactMessage {
+  id : UUID
+  name : String
+  email : String
+  message : String
+  status : new | read | answered
+}
+class Product {
+  id : UUID
+  slug : String
+  name : String
+  category : smoothie | jugo | batido | shot
+  basePrice : int (CLP)
+  active : boolean
+}
+class Size {
+  code : small | medium | large | fixed
+  volumeMl : int
+  priceDelta : int
+}
+class Stock {
+  onHand : int
+  reserved : int
+}
+class Combo {
+  id : UUID
+  name : String
+  price : int (CLP)
+  active : boolean
+}
+class ComboItem {
+  quantity : int
+  requiresSelection : boolean
+}
+class Reservation {
+  orderId : UUID
+  quantity : int
+  state : reserved | committed | released
+}
+class Order {
+  id : UUID
+  status : OrderStatus
+  fulfillment : delivery | pickup
+  subtotal : int
+  discountTotal : int
+  deliveryFee : int
+  total : int
+  currency : CLP
+  expiresAt : DateTime
+}
+class OrderItem {
+  kind : product | combo
+  qty : int (> 0)
+  unitPrice : int
+  lineTotal : int
+}
+class OrderStatusHistory {
+  fromStatus : OrderStatus
+  toStatus : OrderStatus
+  actor : String
+  at : DateTime
+}
+class Coupon {
+  code : String
+  percent : int
+  firstPurchaseOnly : boolean
+}
+class IdempotencyKey {
+  key : String
+  requestHash : String
+  state : in_progress | completed
+}
+class Payment {
+  id : UUID
+  amount : int
+  status : PENDING | APPROVED | REJECTED | REFUND_PENDING | REFUNDED
+  providerToken : String
+}
+class WebhookEvent {
+  eventId : String
+  outcome : String
+}
+
+' ---------- DTOs expuestos (separados del dominio) ----------
+package "DTOs expuestos al cliente" {
+  class OrderCreateRequest <<DTO>> {
+    items : [{productId, size, qty}]
+    fulfillment, addressId, couponCode
+    (sin precios, totales ni estado)
+  }
+  class OrderResponse <<DTO>> {
+    id, status, totals, items, payment
+  }
+}
+
+' ---------- Relaciones con multiplicidad ----------
+User "1" -- "0..*" RefreshToken : posee
+User "1" -- "1" Client : identidad
+Client "1" *-- "0..*" Address : tiene
+Client "1" -- "0..*" ContactMessage : envía (opcional)
+Product "1" *-- "1..*" Size : se ofrece en
+Product "1" *-- "1" Stock : controla
+Combo "1" *-- "1..*" ComboItem : compone
+ComboItem "0..*" -- "0..1" Product : producto fijo
+Order "1" *-- "1..*" OrderItem : detalla
+Order "1" *-- "1..*" OrderStatusHistory : registra
+Order "0..*" -- "0..1" Coupon : aplica
+Order "0..*" -- "1" User : pertenece a
+Order "1" -- "0..*" Payment : se paga con
+Order "1" -- "0..*" Reservation : reserva stock
+Reservation "0..*" -- "1" Product : sobre
+Payment "1" -- "0..*" WebhookEvent : recibe
+User "1" -- "0..*" IdempotencyKey : genera
+IdempotencyKey "0..1" -- "0..1" Order : resultado
+
+' ---------- Servicios -> DTO / dominio ----------
+OrderService ..> OrderCreateRequest : recibe
+OrderService ..> OrderResponse : devuelve
+OrderService ..> Order
+CatalogService ..> Product
+CatalogService ..> Combo
+ClientService ..> Client
+ClientService ..> Address
+AuthService ..> User
+AuthService ..> RefreshToken
+PaymentWebhook ..> Payment
+AdminService ..> Order
+AdminService ..> Product
+
+note bottom of Order
+  Un pedido tiene 1..* detalles: no existe un pedido vacío.
+  Estados: PENDING_PAYMENT, PAID, PREPARING, READY,
+  OUT_FOR_DELIVERY, DELIVERED, PAYMENT_FAILED, EXPIRED, CANCELLED.
+  Anular = cambiar a CANCELLED (no se borra; conserva historial).
+end note
+@enduml

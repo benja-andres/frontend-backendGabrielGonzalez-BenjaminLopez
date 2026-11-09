@@ -1,0 +1,93 @@
+@startuml modulo5_api_gateway
+title Módulo 5 - Clases del API Gateway, políticas y GraphQL Gateway
+skinparam classAttributeIconSize 0
+
+class ApiGateway {
+  -routes : RouteDefinition[]
+  +handle(request) : Response
+  -stripUntrustedHeaders(request)
+  -forward(route, identity) : Response
+}
+class RouteDefinition {
+  +id : String (G01..G33)
+  +method : GET | POST | PUT | PATCH | DELETE
+  +path : String
+  +access : anon | customer | user | admin
+  +target : String
+  +to : String
+  +limit : anon | user | auth | webhook
+  +maxBody : int
+}
+interface AuthenticationPolicy <<policy>> {
+  +verifyJwt(token) : Identity
+}
+interface AuthorizationPolicy <<policy>> {
+  +allows(identity, route) : boolean
+}
+class RateLimiter <<policy>> {
+  +check(class, key) : {ok, retryAfter}
+}
+class ServiceTarget {
+  +name : String
+  +port : int
+  +internalToken(ttl=60s)
+}
+class ErrorMapper {
+  +map(error) : HttpResponse
+  (sin detalles internos)
+}
+class SecretProvider {
+  +get(ref : String) : String
+  (current + previous)
+}
+class SecretManager <<private>> {
+  -acl : Map<service, refs[]>
+  +getSecret(ref, serviceToken)
+}
+class GraphQLGateway <<private>> {
+  +execute(query, identity)
+}
+class QueryValidator {
+  maxDepth : int
+  maxCost : int
+  maxPageSize = 50
+  introspection = off
+}
+class FieldAccessPolicy {
+  +authorize(identity, operation, field)
+}
+class Resolvers {
+  +resumenPedido(id)
+  +misPedidos()
+  +catalog()
+  +pedidosAdmin()
+}
+class ServiceConnector <<adapter>> {
+  +call(service, method, path, identity)
+}
+
+ApiGateway "1" *-- "33" RouteDefinition : tabla explícita
+ApiGateway ..> AuthenticationPolicy : usa
+ApiGateway ..> AuthorizationPolicy : usa
+ApiGateway ..> RateLimiter : usa
+ApiGateway ..> ErrorMapper : usa
+ApiGateway ..> SecretProvider : usa
+RouteDefinition "0..*" --> "1" ServiceTarget : destino
+ApiGateway ..> ServiceTarget : reenvía con token interno
+SecretProvider ..> SecretManager : SM_TOKEN
+ServiceTarget <|.. GraphQLGateway
+GraphQLGateway "1" *-- "1" QueryValidator
+GraphQLGateway "1" *-- "1" FieldAccessPolicy
+GraphQLGateway "1" *-- "1" Resolvers
+Resolvers ..> ServiceConnector
+ServiceConnector ..> ServiceTarget : orders, payments, inventory, clients
+
+note right of ApiGateway
+  Frontera de confianza:
+  1. Elimina x-user-*, x-internal-*, x-forwarded-user, x-user-role del navegador.
+  2. Verifica el JWT (HS256, algoritmo fijo).
+  3. Inyecta identidad verificada mediante token interno de 60 s
+     firmado con el secreto del servicio destino.
+  4. Los servicios privados rechazan llamadas sin ese token.
+end note
+@enduml

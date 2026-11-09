@@ -1,0 +1,20 @@
+{
+  "name": "natural-power-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Backend seguro de Natural Power: API Gateway, Auth, GraphQL Gateway, secretos y microservicios inventory/orders/clients/payments.",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "env:init": "node scripts/gen-env.mjs",
+    "dev": "node scripts/dev.mjs",
+    "reset": "node scripts/dev.mjs --reset",
+    "test": "node --env-file=.env --test --test-concurrency=1 tests/e2e.test.mjs",
+    "loadtest": "node --env-file=.env scripts/loadtest.mjs"
+  },
+  "dependencies": {
+    "graphql": "16.11.0"
+  }
+}

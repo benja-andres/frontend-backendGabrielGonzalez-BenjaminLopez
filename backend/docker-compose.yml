@@ -1,0 +1,161 @@
+# Natural Power: backend completo.
+#  - Red "private" (internal: true): sin acceso desde el host ni a Internet. Aquí viven los servicios privados,
+#    el gestor de secretos y el GraphQL Gateway.
+#  - Red "public": solo el API Gateway (8080) y el proveedor de pagos de prueba (4007, es un tercero) publican puertos.
+#
+# Uso:  npm run env:init   (genera .env)   ->   docker compose up --build
+
+x-service: &service
+  build:
+    context: .
+  restart: unless-stopped
+  networks: [private]
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+
+x-health: &health
+  interval: 5s
+  timeout: 3s
+  retries: 12
+
+services:
+  secret-manager:
+    <<: *service
+    build: { context: ., args: { SERVICE: secret-manager } }
+    environment:
+      SECRET_JWT_ACCESS: ${SECRET_JWT_ACCESS:?}
+      SECRET_SVC_AUTH: ${SECRET_SVC_AUTH:?}
+      SECRET_SVC_CLIENTS: ${SECRET_SVC_CLIENTS:?}
+      SECRET_SVC_INVENTORY: ${SECRET_SVC_INVENTORY:?}
+      SECRET_SVC_ORDERS: ${SECRET_SVC_ORDERS:?}
+      SECRET_SVC_PAYMENTS: ${SECRET_SVC_PAYMENTS:?}
+      SECRET_SVC_GRAPHQL_GATEWAY: ${SECRET_SVC_GRAPHQL_GATEWAY:?}
+      SECRET_PAYMENT_WEBHOOK_HMAC: ${SECRET_PAYMENT_WEBHOOK_HMAC:?}
+      SECRET_PROVIDER_API_KEY: ${SECRET_PROVIDER_API_KEY:?}
+      SM_TOKEN_API_GATEWAY: ${SM_TOKEN_API_GATEWAY:?}
+      SM_TOKEN_AUTH: ${SM_TOKEN_AUTH:?}
+      SM_TOKEN_CLIENTS: ${SM_TOKEN_CLIENTS:?}
+      SM_TOKEN_INVENTORY: ${SM_TOKEN_INVENTORY:?}
+      SM_TOKEN_ORDERS: ${SM_TOKEN_ORDERS:?}
+      SM_TOKEN_PAYMENTS: ${SM_TOKEN_PAYMENTS:?}
+      SM_TOKEN_GRAPHQL_GATEWAY: ${SM_TOKEN_GRAPHQL_GATEWAY:?}
+      SM_TOKEN_PROVIDER_MOCK: ${SM_TOKEN_PROVIDER_MOCK:?}
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4100/health"] }
+
+  auth:
+    <<: *service
+    build: { context: ., args: { SERVICE: auth } }
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_AUTH:?}
+      SEED_ON_BOOT: ${SEED_ON_BOOT:-true}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}
+      SEED_CUSTOMER_PASSWORD: ${SEED_CUSTOMER_PASSWORD:-}
+      ACCESS_TOKEN_TTL_SECONDS: ${ACCESS_TOKEN_TTL_SECONDS:-900}
+    volumes: [auth-data:/data]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4001/health"] }
+
+  clients:
+    <<: *service
+    build: { context: ., args: { SERVICE: clients } }
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_CLIENTS:?}
+      SEED_ON_BOOT: ${SEED_ON_BOOT:-true}
+    volumes: [clients-data:/data]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4002/health"] }
+
+  inventory:
+    <<: *service
+    build: { context: ., args: { SERVICE: inventory } }
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_INVENTORY:?}
+      SEED_ON_BOOT: ${SEED_ON_BOOT:-true}
+    volumes: [inventory-data:/data]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4003/health"] }
+
+  orders:
+    <<: *service
+    build: { context: ., args: { SERVICE: orders } }
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_ORDERS:?}
+      SEED_ON_BOOT: ${SEED_ON_BOOT:-true}
+      ORDER_TTL_MINUTES: ${ORDER_TTL_MINUTES:-15}
+      DELIVERY_FEE: ${DELIVERY_FEE:-2500}
+      FREE_DELIVERY_FROM: ${FREE_DELIVERY_FROM:-15000}
+    volumes: [orders-data:/data]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4004/health"] }
+
+  payments:
+    <<: *service
+    build: { context: ., args: { SERVICE: payments } }
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_PAYMENTS:?}
+    volumes: [payments-data:/data]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4005/health"] }
+
+  graphql-gateway:
+    <<: *service
+    build: { context: ., args: { SERVICE: graphql-gateway } }
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_GRAPHQL_GATEWAY:?}
+      GRAPHQL_MAX_DEPTH: ${GRAPHQL_MAX_DEPTH:-7}
+      GRAPHQL_MAX_COST: ${GRAPHQL_MAX_COST:-2000}
+      GRAPHQL_INTROSPECTION: ${GRAPHQL_INTROSPECTION:-false}
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4006/health"] }
+
+  # Tercero simulado (Webpay/Flow en modo integración). Está en ambas redes: el cliente abre su página de pago.
+  provider-mock:
+    <<: *service
+    build: { context: ., args: { SERVICE: provider-mock } }
+    networks: [private, public]
+    depends_on: { secret-manager: { condition: service_healthy } }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_PROVIDER_MOCK:?}
+      PUBLIC_PROVIDER_URL: ${PUBLIC_PROVIDER_URL:-http://localhost:4007}
+      WEBHOOK_URL: http://api-gateway:8080/api/v1/payments/webhook
+    ports: ["4007:4007"]
+    volumes: [provider-data:/data]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4007/health"] }
+
+  # Único punto de entrada del navegador.
+  api-gateway:
+    <<: *service
+    build: { context: ., args: { SERVICE: api-gateway } }
+    networks: [private, public]
+    depends_on:
+      secret-manager: { condition: service_healthy }
+      auth: { condition: service_healthy }
+      clients: { condition: service_healthy }
+      inventory: { condition: service_healthy }
+      orders: { condition: service_healthy }
+      payments: { condition: service_healthy }
+      graphql-gateway: { condition: service_healthy }
+    environment:
+      SM_TOKEN: ${SM_TOKEN_API_GATEWAY:?}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5500,http://127.0.0.1:5500,http://localhost:3000}
+      RATE_LIMIT_ANON: ${RATE_LIMIT_ANON:-120}
+      RATE_LIMIT_USER: ${RATE_LIMIT_USER:-240}
+      RATE_LIMIT_AUTH: ${RATE_LIMIT_AUTH:-20}
+      RATE_LIMIT_IP: ${RATE_LIMIT_IP:-1200}
+    ports: ["8080:8080"]
+    healthcheck: { <<: *health, test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"] }
+
+networks:
+  private:
+    internal: true
+  public: {}
+
+volumes:
+  auth-data:
+  clients-data:
+  inventory-data:
+  orders-data:
+  payments-data:
+  provider-data:

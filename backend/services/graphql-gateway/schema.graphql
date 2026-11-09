@@ -1,0 +1,221 @@
+# GraphQL Gateway privado de Natural Power.
+# Solo agrega datos de varios subsistemas (inventory, orders, payments, clients). Las reglas
+# transaccionales siguen en cada servicio. Autorización por operación y por campo: ver rules.js.
+
+enum Category {
+  SMOOTHIE
+  JUGO
+  BATIDO
+  SHOT
+}
+
+enum SizeCode {
+  SMALL
+  MEDIUM
+  LARGE
+  FIXED
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  DELIVERED
+  PAYMENT_FAILED
+  EXPIRED
+  CANCELLED
+}
+
+type Page {
+  limit: Int!
+  offset: Int!
+  total: Int!
+  hasMore: Boolean!
+}
+
+# ---------- Catálogo (inventory) ----------
+
+type Nutrition {
+  kcal: Int!
+  carbs: Int!
+  sugars: Int!
+  protein: Int!
+  fat: Int!
+  fiber: Int!
+}
+
+type SizeOption {
+  code: SizeCode!
+  label: String!
+  volumeMl: Int!
+  price: Int!
+}
+
+"Existencias: solo administradores."
+type StockInfo {
+  onHand: Int!
+  reserved: Int!
+  free: Int!
+}
+
+type Product {
+  id: ID!
+  slug: String!
+  name: String!
+  description: String!
+  category: Category!
+  "Precio del tamaño mediano (o del shot)."
+  price: Int!
+  image: String
+  badge: String
+  available: Boolean!
+  sizes: [SizeOption!]!
+  nutrition: Nutrition!
+  "Solo administradores."
+  stock: StockInfo
+  "Otros productos de la misma categoría (máximo 10)."
+  relacionados(first: Int = 4): [Product!]!
+}
+
+type ComboComponent {
+  productId: ID
+  name: String
+  category: String
+  quantity: Int!
+  requiresSelection: Boolean!
+}
+
+type Combo {
+  id: ID!
+  slug: String!
+  name: String!
+  description: String!
+  price: Int!
+  badge: String
+  image: String
+  available: Boolean!
+  components: [ComboComponent!]!
+}
+
+type ProductConnection {
+  nodes: [Product!]!
+  page: Page!
+}
+
+# ---------- Pedidos (orders) + pagos (payments) + productos (inventory) ----------
+
+type Totals {
+  subtotal: Int!
+  discount: Int!
+  deliveryFee: Int!
+  total: Int!
+  currency: String!
+}
+
+type Address {
+  id: ID
+  label: String
+  street: String!
+  comuna: String!
+  region: String
+  notes: String
+  isDefault: Boolean
+}
+
+type Contact {
+  name: String
+  phone: String
+}
+
+type OrderItem {
+  kind: String!
+  refId: ID!
+  name: String!
+  size: SizeCode
+  sizeLabel: String
+  quantity: Int!
+  unitPrice: Int!
+  lineTotal: Int!
+  discount: Int!
+  promo: String
+  "Descripción actual del producto (inventory). Nulo si es un combo o si inventory no responde."
+  product: Product
+}
+
+type Payment {
+  id: ID
+  status: String!
+  "Datos de payments. Pueden venir nulos si payments no responde (error parcial)."
+  amount: Int
+  currency: String
+  "Referencia del proveedor: solo administradores."
+  providerRef: String
+}
+
+type StatusChange {
+  status: OrderStatus!
+  at: String!
+  "Solo administradores."
+  actor: String
+  actorRole: String
+  reason: String
+}
+
+type Order {
+  id: ID!
+  status: OrderStatus!
+  fulfillment: String!
+  items: [OrderItem!]!
+  totals: Totals!
+  coupon: String
+  address: Address
+  contact: Contact!
+  notes: String
+  payment: Payment!
+  createdAt: String!
+  expiresAt: String
+  history: [StatusChange!]!
+  "Solo administradores."
+  userId: ID
+  "Solo administradores."
+  cancelReason: String
+}
+
+type OrderConnection {
+  nodes: [Order!]!
+  page: Page!
+}
+
+# ---------- Cliente (clients) ----------
+
+type Client {
+  id: ID!
+  name: String!
+  email: String
+  phone: String
+  createdAt: String
+  addresses: [Address!]!
+}
+
+type Query {
+  "Catálogo paginado (público)."
+  catalog(first: Int = 20, offset: Int = 0, category: Category, q: String, onlyAvailable: Boolean): ProductConnection!
+  combos: [Combo!]!
+  product(id: ID!): Product
+
+  "Pedido + estado de pago + descripción de productos. Solo el dueño o un administrador."
+  resumenPedido(id: ID!): Order
+  "Pedidos del cliente autenticado."
+  misPedidos(first: Int = 10, offset: Int = 0, status: OrderStatus): OrderConnection!
+  "Perfil y direcciones del usuario autenticado."
+  me: Client
+  "Listado de todos los pedidos. Solo administradores."
+  pedidosAdmin(first: Int = 20, offset: Int = 0, status: OrderStatus, userId: ID): OrderConnection!
+}
+
+type Mutation {
+  "Anula (no borra) un pedido. Los clientes solo pueden anular pedidos pendientes de pago."
+  anularPedido(id: ID!, reason: String): Order!
+}

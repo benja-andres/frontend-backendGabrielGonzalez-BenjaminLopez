@@ -1,0 +1,11 @@
+{
+  "_comment": "Solo referencias simbólicas: quién puede leer qué secreto. Los valores viven en el entorno del gestor.",
+  "api-gateway": ["jwt-access", "svc-auth", "svc-clients", "svc-inventory", "svc-orders", "svc-payments", "svc-graphql-gateway"],
+  "auth": ["jwt-access", "svc-auth", "svc-clients"],
+  "clients": ["svc-clients", "svc-auth"],
+  "inventory": ["svc-inventory"],
+  "orders": ["svc-orders", "svc-inventory", "svc-payments", "svc-clients"],
+  "payments": ["svc-payments", "svc-orders", "payment-webhook-hmac", "provider-api-key"],
+  "graphql-gateway": ["svc-graphql-gateway", "svc-orders", "svc-inventory", "svc-clients", "svc-payments"],
+  "provider-mock": ["payment-webhook-hmac", "provider-api-key"]
+}
